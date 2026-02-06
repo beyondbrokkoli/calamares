@@ -169,7 +169,8 @@ end
 -- Structural Audit for terminal review
 print("\n--- POST-EXECUTION STRUCTURE AUDIT ---")
 local test_data = {}
-for i=1, math.min(3, #json) do test_data[i] = json[i] end
+--for i=1, math.min(3, #json) do test_data[i] = json[i] end
+for i=1, #json do test_data[i] = json[i] end
 walkJson(test_data, function(k, v, depth, isTable, isArrayElem)
     local indent = string.rep("  ", depth)
     local keyStr = isArrayElem and ("[" .. k .. "]:") or (k .. ":")
