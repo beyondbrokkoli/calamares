@@ -71,30 +71,20 @@ local function verify_uuid(dev, expected_uuid)
     return true
 end
 
-local function old_preflight_check(p)
-    local block = get_block_device(p.device)
-    print(string.format("\n[LOG]: Examining %s", p.mountPoint or "Unknown"))
-    print(string.format("  |- Physical Device: %s -> Parent: %s", p.device, block))
-    
-    if p.device:find("mapper") then
-        print("  |- Security: LUKS active. Trusting mapper node.")
-    end
-    
-    if p.subvolume then
-        print(string.format("  |- Btrfs Logic: Targeted Subvolume: %s", p.subvolume))
-    end
-end
-
 local function preflight_check(p)
     local block = get_block_device(p.device)
     print(string.format("\n[LOG]: Examining %s", p.mountPoint or "Unknown"))
-    
+    print(string.format("  |- Physical Device: %s -> Parent: %s", p.device, block))
+
     if p.uuid then
         verify_uuid(p.device, p.uuid)
     end
 
     if p.device:find("mapper") then
         print("  |- Security: LUKS active. Trusting mapper node.")
+    end
+    if p.subvolume then
+        print(string.format("  |- Btrfs Logic: Targeted Subvolume: %s", p.subvolume))
     end
 end
 
