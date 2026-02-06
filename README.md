@@ -1,1 +1,1 @@
-sudo pacman -S lua-dksjon
+sudo pacman -S lua-dkjson
