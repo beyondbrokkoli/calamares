@@ -17,7 +17,7 @@ import tempfile
 import subprocess
 import os
 import re
-
+import json
 import libcalamares
 
 import gettext
