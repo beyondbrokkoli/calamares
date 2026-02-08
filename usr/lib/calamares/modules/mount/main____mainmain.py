@@ -327,6 +327,10 @@ def run():
     if not partitions:
         libcalamares.utils.warning("partitions is empty")
         return (_("Configuration Error"), _("No partitions defined."))
+    tempJson = tempfile.NamedTemporaryFile(delete=False).name
+    with open(tempJson, "w") as f:
+        json.dump(partitions,f) 
+    subprocess.run(["lua", "/etc/calamares/scripts/mount.lua", tempJson])
 
     # 1. Restore Swap Activation (Physical swap first)
     claimed_swap = [p for p in partitions if p["fs"] == "linuxswap" and p.get("claimed", False)]
