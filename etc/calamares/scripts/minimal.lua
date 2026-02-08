@@ -1,4 +1,16 @@
 local libJson = require("dkjson")
+
+local f = io.open(arg[1], "r")
+if not f then os.exit(1) end
+local content = f:read("*all")
+f:close()
+
+local json, _, err = libJson.decode(content)
+if err then 
+    print("[FATAL]: JSON error: " .. err)
+    os.exit(1) 
+end
+
 local printJsonObject -- Forward declaration
 
 local function printJsonArray(j, depth)
