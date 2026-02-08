@@ -1,4 +1,4 @@
-
+local libJson = require("dkjson")
 local printJsonObject -- Forward declaration
 
 local function printJsonArray(j, depth)
