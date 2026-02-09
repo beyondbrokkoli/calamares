@@ -331,7 +331,7 @@ def run():
         libcalamares.utils.warning("partitions is empty")
         return (_("Configuration Error"), _("No partitions defined."))
 
-    tempJson = tempfile.NamedTemporaryFile(delete=False).name
+    tempJson = tempfile.NamedTemporaryFile(delete=True).name
     with open(tempJson, "w") as f:
         json.dump(partitions,f) 
     subprocess.run(["lua", "/etc/calamares/scripts/minimal.lua", tempJson])
