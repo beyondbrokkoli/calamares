@@ -1,0 +1,359 @@
+    Building partition information map  
+    .. partitions on "/dev/sda"  
+    ..  mapping for "/dev/sda1" "/dev/sda1"  
+     partlabel :   ""  
+     partition-uuid (partuuid) :   "PartUUID$b1171a66"  
+     parttype :   "C12A7328-F81F-11D2-BA4B-00A0C93EC93B"  
+     partattrs :   "0"  
+     mountPoint: :   "/boot"  
+     fs: :   "fat32"  
+     fsName :   "fat32"  
+     filesystem-uuid (uuid) :   "FSUUID$6eb1e154"  
+     claimed :   "true"  
+    ..  mapping for "/dev/sda2" "/dev/sda2"  
+     partlabel :   ""  
+     partition-uuid (partuuid) :   "PartUUID$c4ffc13b"  
+     parttype :   "0FC63DAF-8483-4772-8E79-3D69D8477DE4"  
+     partattrs :   "0"  
+     mountPoint: :   "/srv"  
+     fs: :   "btrfs"  
+     fsName :   "btrfs"  
+     filesystem-uuid (uuid) :   "FSUUID$2b4589d2"  
+     claimed :   "true"  
+    ..  mapping for "/dev/sda3" "/dev/sda3"  
+     partlabel :   ""  
+     partition-uuid (partuuid) :   "PartUUID$dcf73bd"  
+     parttype :   "0FC63DAF-8483-4772-8E79-3D69D8477DE4"  
+     partattrs :   "0"  
+     mountPoint: :   "/var"  
+     fs: :   "btrfs"  
+     fsName :   "btrfs"  
+     filesystem-uuid (uuid) :   "FSUUID$8a69be3e"  
+     claimed :   "true"  
+    ..  mapping for "/dev/sda4" "/dev/sda4"  
+     partlabel :   ""  
+     partition-uuid (partuuid) :   "PartUUID$8fa6c7bb"  
+     parttype :   "0FC63DAF-8483-4772-8E79-3D69D8477DE4"  
+     partattrs :   "0"  
+     mountPoint: :   "/usr"  
+     fs: :   "btrfs"  
+     fsName :   "btrfs"  
+     filesystem-uuid (uuid) :   "FSUUID$88a2ee74"  
+     claimed :   "true"  
+    ..  mapping for "/dev/sda5" "/dev/sda5"  
+     partlabel :   ""  
+     partition-uuid (partuuid) :   "PartUUID$89db5b7"  
+     parttype :   "0FC63DAF-8483-4772-8E79-3D69D8477DE4"  
+     partattrs :   "0"  
+     mountPoint: :   "/home"  
+     fs: :   "btrfs"  
+     fsName :   "btrfs"  
+     filesystem-uuid (uuid) :   "FSUUID$c5a8bb05"  
+     claimed :   "true"  
+    ..  mapping for "/dev/sda6" "/dev/sda6"  
+     partlabel :   ""  
+     partition-uuid (partuuid) :   "PartUUID$7de59bc"  
+     parttype :   "0FC63DAF-8483-4772-8E79-3D69D8477DE4"  
+     partattrs :   "0"  
+     mountPoint: :   "/"  
+     fs: :   "btrfs"  
+     fsName :   "btrfs"  
+     filesystem-uuid (uuid) :   "FSUUID$56c5c6f1"  
+     claimed :   "false"  
+    ..  mapping for "/dev/sda7" "/dev/sda7"  
+     partlabel :   ""  
+     partition-uuid (partuuid) :   "PartUUID$14e2524e"  
+     parttype :   "0FC63DAF-8483-4772-8E79-3D69D8477DE4"  
+     partattrs :   "0"  
+     mountPoint: :   ""  
+     fs: :   "btrfs"  
+     fsName :   "btrfs"  
+     filesystem-uuid (uuid) :   "FSUUID$abc26eaa"  
+     claimed :   "false"  
+    ..  mapping for "/dev/sda8" "/dev/sda8"  
+     partlabel :   ""  
+     partition-uuid (partuuid) :   "PartUUID$9305a3c8"  
+     parttype :   "0FC63DAF-8483-4772-8E79-3D69D8477DE4"  
+     partattrs :   "0"  
+     mountPoint: :   "/opt"  
+     fs: :   "ext4"  
+     fsName :   "ext4"  
+     filesystem-uuid (uuid) :   "FSUUID$13b69081"  
+     claimed :   "true"  
+    .. partitions on "/dev/sdb"  
+    ..  mapping for "/dev/sdb1" "/dev/sdb1"  
+     partlabel :   ""  
+     partition-uuid (partuuid) :   "PartUUID$6e97f958"  
+     parttype :   ""  
+     partattrs :   "0"  
+     mountPoint: :   ""  
+     fs: :   "exfat"  
+     fsName :   "exfat"  
+     filesystem-uuid (uuid) :   "FSUUID$f3e80f9a"  
+     claimed :   "false"  
+    ..  mapping for "/dev/sdb2" "/dev/sdb2"  
+     partlabel :   ""  
+     partition-uuid (partuuid) :   "PartUUID$6e97f958"  
+     parttype :   ""  
+     partattrs :   "0"  
+     mountPoint: :   ""  
+     fs: :   "fat16"  
+     fsName :   "fat16"  
+     filesystem-uuid (uuid) :   "FSUUID$c312215e"  
+     claimed :   "false"  
+06:03:45 [6]: virtual Calamares::JobResult FillGlobalStorageJob::exec()
+    Saving partition information map to GlobalStorage["partitions"]  
+06:03:45 [6]: virtual Calamares::JobResult FillGlobalStorageJob::exec()
+    FillGlobalStorageJob writing empty bootLoader value  
+06:03:45 [6]: virtual void Calamares::JobThread::run()
+    Starting job "Einstellungen für Auto-Mount verwalten…" ( 12 / 48 )  
+06:03:45 [6]: virtual Calamares::JobResult AutoMountManagementJob::exec()
+    Restore automount settings  
+06:03:45 [6]: virtual void Calamares::JobThread::run()
+    Starting job "ZFS-Pools und Datensätze erstellen…" ( 13 / 48 )  
+06:03:45 [6]: virtual void Calamares::JobThread::run()
+    Starting job "mount" ( 14 / 48 )  
+06:03:45 [6]: virtual Calamares::JobResult Calamares::PythonJob::exec()
+    Job file "/usr/lib/calamares/modules/mount/main.py"  
+[PYTHON JOB]: Found gettext "de" in "/usr/share/locale/de"  
+    .. Job description from pretty_name "mount" = "Hänge Partitionen ein."  
+[1]:
+  features:
+  fs: fat32
+  claimed: true
+  uuid: 4A52-223D
+  fsName: fat32
+  device: /dev/sda1
+  parttype: C12A7328-F81F-11D2-BA4B-00A0C93EC93B
+  mountPoint: /boot
+  partattrs: 0
+  partuuid: 295B1D3F-5691-49D0-9332-8EFAAEBEBE6D
+  partlabel:  
+[2]:
+  features:
+  fs: btrfs
+  claimed: true
+  uuid: 5cc23619-96ef-429b-96a5-0fdbeae465e0
+  fsName: btrfs
+  device: /dev/sda2
+  parttype: 0FC63DAF-8483-4772-8E79-3D69D8477DE4
+  mountPoint: /srv
+  partattrs: 0
+  partuuid: 770EADED-8836-435E-9BD2-28342C3C6FA4
+  partlabel:  
+[3]:
+  features:
+  fs: btrfs
+  claimed: true
+  uuid: ddbbd9a9-3898-4f48-ad48-e4b439f68c5d
+  fsName: btrfs
+  device: /dev/sda3
+  parttype: 0FC63DAF-8483-4772-8E79-3D69D8477DE4
+  mountPoint: /var
+  partattrs: 0
+  partuuid: 064FDB05-09A8-4FF4-818D-3ED1CF5FC2E5
+  partlabel:  
+[4]:
+  features:
+  fs: btrfs
+  claimed: true
+  uuid: 08edb24a-c064-4546-a29f-6da1db073861
+  fsName: btrfs
+  device: /dev/sda4
+  parttype: 0FC63DAF-8483-4772-8E79-3D69D8477DE4
+  mountPoint: /usr
+  partattrs: 0
+  partuuid: D14E9793-3B9F-428B-8248-B98D3E898676
+  partlabel:  
+[5]:
+  features:
+  fs: btrfs
+  claimed: true
+  uuid: fc07cb37-87ec-47bb-90a4-8b4c947e2e8b
+  fsName: btrfs
+  device: /dev/sda5
+  parttype: 0FC63DAF-8483-4772-8E79-3D69D8477DE4
+  mountPoint: /home
+  partattrs: 0
+  partuuid: 66C4E996-DF89-4D57-A29E-B89A26CD68DF
+  partlabel:  
+[6]:
+  features:
+  fs: btrfs
+  claimed: false
+  uuid: 6603e285-5425-4a0c-9282-2cb0190d7b5f
+  fsName: btrfs
+  device: /dev/sda6
+  parttype: 0FC63DAF-8483-4772-8E79-3D69D8477DE4
+  mountPoint: /
+  partattrs: 0
+  partuuid: 47C736AC-0F96-4603-BC1C-5F9C29518133
+  partlabel:  
+[7]:
+  features:
+  fs: btrfs
+  claimed: false
+  uuid: 9274d209-0284-45c6-92bc-3ad708c2d582
+  fsName: btrfs
+  device: /dev/sda7
+  parttype: 0FC63DAF-8483-4772-8E79-3D69D8477DE4
+  mountPoint:  
+  partattrs: 0
+  partuuid: 5BDDCA72-884C-4E3B-8ED1-E54C9BBE5834
+  partlabel:  
+[8]:
+  features:
+  fs: ext4
+  claimed: true
+  uuid: 8fea6bcb-dd7e-4b33-bb15-91d81840d17d
+  fsName: ext4
+  device: /dev/sda8
+  parttype: 0FC63DAF-8483-4772-8E79-3D69D8477DE4
+  mountPoint: /opt
+  partattrs: 0
+  partuuid: 124FB7D5-6317-41F0-A2DB-55EB5422A5D1
+  partlabel:  
+[9]:
+  features:
+  fs: exfat
+  claimed: false
+  uuid: 86DC-44C9
+  fsName: exfat
+  device: /dev/sdb1
+  parttype:  
+  mountPoint:  
+  partattrs: 0
+  partuuid:  
+  partlabel:  
+[10]:
+  features:
+  fs: fat16
+  claimed: false
+  uuid: E039-AD96
+  fsName: fat16
+  device: /dev/sdb2
+  parttype:  
+  mountPoint:  
+  partattrs: 0
+  partuuid:  
+  partlabel:  
+[1]:
+  features:
+  fs: fat32
+  claimed: true
+  uuid: 4A52-223D
+  fsName: fat32
+  device: /dev/sda1
+  parttype: C12A7328-F81F-11D2-BA4B-00A0C93EC93B
+  mountPoint: /boot
+  partattrs: 0
+  partuuid: 295B1D3F-5691-49D0-9332-8EFAAEBEBE6D
+  partlabel:  
+[2]:
+  features:
+  fs: btrfs
+  claimed: true
+  uuid: 5cc23619-96ef-429b-96a5-0fdbeae465e0
+  fsName: btrfs
+  device: /dev/sda2
+  parttype: 0FC63DAF-8483-4772-8E79-3D69D8477DE4
+  mountPoint: /srv
+  partattrs: 0
+  partuuid: 770EADED-8836-435E-9BD2-28342C3C6FA4
+  partlabel:  
+[3]:
+  features:
+  fs: btrfs
+  claimed: true
+  uuid: ddbbd9a9-3898-4f48-ad48-e4b439f68c5d
+  fsName: btrfs
+  device: /dev/sda3
+  parttype: 0FC63DAF-8483-4772-8E79-3D69D8477DE4
+  mountPoint: /var
+  partattrs: 0
+  partuuid: 064FDB05-09A8-4FF4-818D-3ED1CF5FC2E5
+  partlabel:  
+[4]:
+  features:
+  fs: btrfs
+  claimed: true
+  uuid: 08edb24a-c064-4546-a29f-6da1db073861
+  fsName: btrfs
+  device: /dev/sda4
+  parttype: 0FC63DAF-8483-4772-8E79-3D69D8477DE4
+  mountPoint: /usr
+  partattrs: 0
+  partuuid: D14E9793-3B9F-428B-8248-B98D3E898676
+  partlabel:  
+[5]:
+  features:
+  fs: btrfs
+  claimed: true
+  uuid: fc07cb37-87ec-47bb-90a4-8b4c947e2e8b
+  fsName: btrfs
+  device: /dev/sda5
+  parttype: 0FC63DAF-8483-4772-8E79-3D69D8477DE4
+  mountPoint: /home
+  partattrs: 0
+  partuuid: 66C4E996-DF89-4D57-A29E-B89A26CD68DF
+  partlabel:  
+[6]:
+  features:
+  fs: btrfs
+  claimed: false
+  uuid: 6603e285-5425-4a0c-9282-2cb0190d7b5f
+  fsName: btrfs
+  device: /dev/sda6
+  parttype: 0FC63DAF-8483-4772-8E79-3D69D8477DE4
+  mountPoint: /
+  partattrs: 0
+  partuuid: 47C736AC-0F96-4603-BC1C-5F9C29518133
+  partlabel:  
+[7]:
+  features:
+  fs: btrfs
+  claimed: false
+  uuid: 9274d209-0284-45c6-92bc-3ad708c2d582
+  fsName: btrfs
+  device: /dev/sda7
+  parttype: 0FC63DAF-8483-4772-8E79-3D69D8477DE4
+  mountPoint:  
+  partattrs: 0
+  partuuid: 5BDDCA72-884C-4E3B-8ED1-E54C9BBE5834
+  partlabel:  
+[8]:
+  features:
+  fs: ext4
+  claimed: true
+  uuid: 8fea6bcb-dd7e-4b33-bb15-91d81840d17d
+  fsName: ext4
+  device: /dev/sda8
+  parttype: 0FC63DAF-8483-4772-8E79-3D69D8477DE4
+  mountPoint: /opt
+  partattrs: 0
+  partuuid: 124FB7D5-6317-41F0-A2DB-55EB5422A5D1
+  partlabel:  
+[9]:
+  features:
+  fs: exfat
+  claimed: false
+  uuid: 86DC-44C9
+  fsName: exfat
+  device: /dev/sdb1
+  parttype:  
+  mountPoint:  
+  partattrs: 0
+  partuuid:  
+  partlabel:  
+[10]:
+  features:
+  fs: fat16
+  claimed: false
+  uuid: E039-AD96
+  fsName: fat16
+  device: /dev/sdb2
+  parttype:  
+  mountPoint:  
+  partattrs: 0
+  partuuid:  
+  partlabel: 
