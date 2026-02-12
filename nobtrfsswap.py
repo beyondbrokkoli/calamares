@@ -350,14 +350,11 @@ def mount_partition(root_mount_point, partition, partitions, mount_options, moun
             # This tells Linux: "Put this specific subvolume here"
             sub_opts = f"subvol={s['subvolume']},{mount_options_string}"
         else:
-            # Mounting the entire filesystem (if subvol is missing in config?)
-            sub_opts = mount_options_string
+            raise Exception(f"Configuration error: subvolume not defined")
 
         # This builds the path INSIDE your new root
         sub_path = root_mount_point + s["mountPoint"]
         os.makedirs(sub_path, exist_ok=True)
-        # This tells Linux: "Put this specific subvolume here"
-        sub_opts = f"subvol={s['subvolume']},{mount_options_string}"
 
         if libcalamares.utils.mount(device, sub_path, fstype, sub_opts) == 0:
             mount_options_list.append({"mountpoint": s["mountPoint"], "option_string": mount_options_string})
