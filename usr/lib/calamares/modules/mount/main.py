@@ -17,7 +17,7 @@ import tempfile
 import subprocess
 import os
 import re
-import json
+
 import libcalamares
 
 import gettext
@@ -281,7 +281,6 @@ def mount_partition(root_mount_point, partition, partitions, mount_options, moun
         # Block if: not a boot path, OR ntfs/ext2, OR exfat on UEFI
         if not is_boot or fstype in ["ntfs", "ext2"] or (fstype == "exfat" and efi_location):
             err(f"Unsupported partition with {fstype} on {raw_mount_point}",am)
-            # return (fstab still sees the partition)
         fstype = "vfat" if fstype != "exfat" else "exfat"
 
     if "luksMapperName" in partition:
@@ -307,10 +306,13 @@ def mount_partition(root_mount_point, partition, partitions, mount_options, moun
 
     with tempfile.TemporaryDirectory(prefix="calam-btrfs-") as setup_dir:
         # Mount raw partition to create subvolumes
+        am.append(setup_dir)
         if libcalamares.utils.mount(device, setup_dir, fstype, "defaults") != 0:
             err(f"Cannot mount btrfs for subvolume creation {device}",am)
         try: # <--- You need this line!
             for s in btrfs_subvolumes:
+                if not s["subvolume"]:
+                    continue
                 sub_path = setup_dir + s["subvolume"]
                 if not os.path.exists(sub_path):
                     os.makedirs(os.path.dirname(sub_path), exist_ok=True)
@@ -320,19 +322,19 @@ def mount_partition(root_mount_point, partition, partitions, mount_options, moun
         finally:
             if os.path.ismount(setup_dir):
                 subprocess.check_call(["umount", "-v", setup_dir])
-            else:
-                err(f"Critical error: {setup_dir} is unexpectedly not mounted.",am)
+            if setup_dir in am:
+                am.remove(setup_dir)
 
     # Find the root subvolume (usually /@)
     root_sub = next((s for s in btrfs_subvolumes if s["mountPoint"] == "/"), None)
     if not root_sub:
-        err(f"Btrfs root subvolume (/) not found!", am)
+        err(f"Btrfs root subvolume (/) not found!",am)
 
     # Mount the specific @ subvolume to the root mount point
     if root_sub['subvolume']:
         root_opts = f"subvol={root_sub['subvolume']},{mount_options_string}"
     else:
-        err(f"Configuration error: root subvolume not defined", am)
+        err(f"root subvolume not defined",am)
 
     if libcalamares.utils.mount(device, root_mount_point, fstype, root_opts) != 0:
         err(f"Failed to mount root subvolume {device}",am)
@@ -347,7 +349,7 @@ def mount_partition(root_mount_point, partition, partitions, mount_options, moun
             # This tells Linux: "Put this specific subvolume here"
             sub_opts = f"subvol={s['subvolume']},{mount_options_string}"
         else:
-            err("Configuration error: subvolume not defined",am)
+            err("subvolume not defined",am)
 
         # This builds the path INSIDE your new root
         sub_path = root_mount_point + s["mountPoint"]
@@ -379,11 +381,6 @@ def run():
         libcalamares.utils.warning("partitions is empty, {!s}".format(partitions))
         return (_("Configuration Error"),
                 _("No partitions are defined for <pre>{!s}</pre> to use.").format("mount"))
-
-    tempJson = tempfile.NamedTemporaryFile(delete=True).name
-    with open(tempJson, "w") as f:
-        json.dump(partitions,f) 
-    subprocess.run(["lua", "/etc/calamares/scripts/minimal.lua", tempJson])
 
     # Find existing swap partitions that are part of the installation and enable them now
     claimed_swap_partitions = [p for p in partitions if p["fs"] == "linuxswap" and p.get("claimed", False)]
@@ -422,7 +419,8 @@ def run():
 
     try:
         for p in physical:
-            mount_partition(root_mount_point, p, partitions, mount_options, mount_options_list, efi_location, active_mounts)        
+            mount_partition(root_mount_point, p, partitions, mount_options, mount_options_list, efi_location, active_mounts)
+         
         # 5. Phase Two: Bind/Virtual (After Btrfs subvolumes exist)
         extra = [p for p in extra_mounts if "mountPoint" in p and p["mountPoint"]]
         extra.sort(key=lambda x: x["mountPoint"])
@@ -432,6 +430,7 @@ def run():
 
     except Exception as e:
         err(str(e), active_mounts)
+
     libcalamares.globalstorage.insert("rootMountPoint", root_mount_point)
     libcalamares.globalstorage.insert("mountOptionsList", mount_options_list)
 
