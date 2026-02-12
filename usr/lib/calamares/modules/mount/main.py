@@ -248,7 +248,7 @@ def mount_partition(root_mount_point, partition, partitions, mount_options, moun
     :param mount_options: The mount options from the config file
     :param mount_options_list: A list of options for each mountpoint to be placed in global storage for future modules
     :param efi_location: A string holding the location of the EFI partition or None
-    :param active_mounts a list of strings
+    :param active_mounts A list of strings
     :return:
     """
     # Create mount point with `+` rather than `os.path.join()` because
