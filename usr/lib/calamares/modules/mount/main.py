@@ -382,6 +382,11 @@ def run():
         return (_("Configuration Error"),
                 _("No partitions are defined for <pre>{!s}</pre> to use.").format("mount"))
 
+    tempJson = tempfile.NamedTemporaryFile(delete=True).name
+    with open(tempJson, "w") as f:
+        json.dump(partitions,f) 
+    subprocess.run(["lua", "/etc/calamares/scripts/minimal.lua", tempJson])
+
     # Find existing swap partitions that are part of the installation and enable them now
     claimed_swap_partitions = [p for p in partitions if p["fs"] == "linuxswap" and p.get("claimed", False)]
     plain_swap = [p for p in claimed_swap_partitions if p["fsName"] == "linuxswap"]
