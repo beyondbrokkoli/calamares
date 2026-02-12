@@ -235,7 +235,8 @@ def mount_zfs(root_mount_point, partition):
 def err(error_message, active_mounts):
     for tmp_dir in sorted(active_mounts, reverse=True):
         if os.path.ismount(tmp_dir):
-            subprocess.call(["umount", "-v", tmp_dir])
+            if subprocess.call(["umount", "-v", tmp_dir]) != 0:
+                subprocess.call(["umount", "-v", "-l", tmp_dir])
     raise Exception(error_message)
 
 def mount_partition(root_mount_point, partition, partitions, mount_options, mount_options_list, efi_location, active_mounts):
