@@ -259,6 +259,7 @@ def mount_partition(root_mount_point, partition, partitions, mount_options, moun
         return
 
     mount_point = root_mount_point + raw_mount_point
+
     am = active_mounts
     am.append(mount_point)
     # Ensure that the created directory has the correct SELinux context on
@@ -268,25 +269,32 @@ def mount_partition(root_mount_point, partition, partitions, mount_options, moun
 
     try:
         subprocess.call(['chcon', '--reference=' + raw_mount_point, mount_point])
-    except:
-        pass
+    except FileNotFoundError as e:
+        libcalamares.utils.warning(str(e))
+    except OSError:
+        libcalamares.utils.error("Cannot run 'chcon' normally.")
+        raise
 
     fstype = partition.get("fs", "").lower()
     if fstype == "unformatted":
         return
 
+
     device = partition["device"]
     if fstype in ["fat16", "fat32", "exfat", "ntfs", "ext2"]:
         is_boot = raw_mount_point in ["/boot", "/boot/efi"]
-        # Block if: not a boot path, OR ntfs/ext2, OR exfat on UEFI
-        if not is_boot or fstype in ["ntfs", "ext2"] or (fstype == "exfat" and efi_location):
+        # Block if: not a boot path, OR ntfs/ext2/exfat
+        if not is_boot or fstype in ["ntfs", "ext2", "exfat"]:
+            # instead of returning we avoid the fstab problem
             err(f"Unsupported partition with {fstype} on {raw_mount_point}",am)
-        fstype = "vfat" if fstype != "exfat" else "exfat"
+        fstype = "vfat"
 
     if "luksMapperName" in partition:
         device = os.path.join("/dev/mapper", partition["luksMapperName"])
 
     if fstype == "zfs":
+        if raw_mount_point != '/':
+            err("Manual ZFS unsupported. Use 'Erase Disk'.", am) # this doesnt install correctly
         mount_zfs(root_mount_point, partition)
         return
 
@@ -312,7 +320,7 @@ def mount_partition(root_mount_point, partition, partitions, mount_options, moun
         try: # <--- You need this line!
             for s in btrfs_subvolumes:
                 if not s["subvolume"]:
-                    continue
+                    err(f"Btrfs subvolume not defined {device}",am) # instead of continue
                 sub_path = setup_dir + s["subvolume"]
                 if not os.path.exists(sub_path):
                     os.makedirs(os.path.dirname(sub_path), exist_ok=True)
@@ -349,7 +357,7 @@ def mount_partition(root_mount_point, partition, partitions, mount_options, moun
             # This tells Linux: "Put this specific subvolume here"
             sub_opts = f"subvol={s['subvolume']},{mount_options_string}"
         else:
-            err("subvolume not defined",am)
+            err("subvolume not defined",am) # instead of mounting entire filesystem
 
         # This builds the path INSIDE your new root
         sub_path = root_mount_point + s["mountPoint"]
@@ -415,6 +423,7 @@ def run():
     # This way, we ensure / is mounted before the rest, and every mount point
     # is created on the right partition (e.g. if a partition is to be mounted
     # under /tmp, we make sure /tmp is mounted before the partition)
+
     # mount_options_list will be inserted into global storage for use in fstab later
     mount_options_list = []
     active_mounts = []
